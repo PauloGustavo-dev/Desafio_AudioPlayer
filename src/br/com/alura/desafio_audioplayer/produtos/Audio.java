@@ -3,8 +3,8 @@ package br.com.alura.desafio_audioplayer.produtos;
 public class Audio {
     private String nome;
     private double duracaoEmMinutos;
-    private int totalDeReproducoes;
-    private int curtidas;
+    private int totalDeReproducoes ;
+    private int curtidas = 0;
     // classificacao
 
     public Audio(String nome) {
@@ -30,8 +30,11 @@ public class Audio {
     public int getCurtidas() {
         return curtidas;
     }
-    
+    public void play(){
+        System.out.println("Tocando " + this.getNome());
+        this.totalDeReproducoes += 1;
+    }
     public void curtir(){
-        curtidas += 1;
+        this.curtidas += 1;
     }
 }
