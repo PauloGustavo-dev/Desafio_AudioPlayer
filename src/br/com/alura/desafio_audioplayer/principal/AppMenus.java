@@ -61,14 +61,11 @@ public class AppMenus {
 
     static void menuEscolhaTipoAudio(String escolhaTipoAudio) {
 
-        List<Musica> listaMusicas = new ArrayList<>();
-        listaMusicas = Listas.listaMusicas();
+        List<Musica> listaMusicas = Listas.listaMusicas();
 
-        List<Podcast> listaPodcasts = new ArrayList<>();
-        listaPodcasts = Listas.listaPodcasts();
+        List<Podcast> listaPodcasts = Listas.listaPodcasts();
         
-        List<Ebook> listaEbooks = new ArrayList<>();
-        listaEbooks = Listas.listaEbooks();
+        List<Ebook> listaEbooks = Listas.listaEbooks();
 
         System.out.println(escolhaTipoAudio + "s disponiveis : ");
         int i = 1;
