@@ -2,7 +2,12 @@ package br.com.alura.desafio_audioplayer.produtos;
 import br.com.alura.desafio_audioplayer.turbo_player.playback;
 
 public class Ebook extends Audio implements playback{
+
     private double velocidadeDeReproducao = 1;
+
+    public Ebook(String nome) {
+        super(nome);
+    }
 
     public double getVelocidadeDeReproducao() {
         return velocidadeDeReproducao;

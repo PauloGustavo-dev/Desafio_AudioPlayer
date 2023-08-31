@@ -5,6 +5,10 @@ import br.com.alura.desafio_audioplayer.turbo_player.playback;
 public class Podcast extends Audio implements playback{
     
     private double velocidadeDeReproducao = 1;
+    
+    public Podcast(String nome) {
+        super(nome);
+    }
 
     public double getVelocidadeDeReproducao() {
         return velocidadeDeReproducao;
