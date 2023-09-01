@@ -15,6 +15,8 @@ public class Listas {
         Musica musica3 = new Musica("Come as you are");
 
         musica1.setDuracaoEmMinutos(4.54);
+        musica2.setDuracaoEmMinutos(8);
+        musica3.setDuracaoEmMinutos(4);
 
         List<Audio> listaMusicas = new ArrayList<>();
         listaMusicas.add(musica1);
@@ -27,6 +29,10 @@ public class Listas {
         Podcast podcast2 = new Podcast("Venus Podcast");
         Podcast podcast3 = new Podcast("Ciência Sem Fim");
 
+        podcast1.setDuracaoEmMinutos(90);
+        podcast2.setDuracaoEmMinutos(60);
+        podcast3.setDuracaoEmMinutos(180);
+
         List<Audio> listaPodcasts = new ArrayList<>();
         listaPodcasts.add(podcast1);
         listaPodcasts.add(podcast2);
@@ -37,6 +43,10 @@ public class Listas {
         Ebook ebook1 = new Ebook("O Hobit");
         Ebook ebook2 = new Ebook("Senhor dos aneis: As duas torres");
         Ebook ebook3 = new Ebook("Harry Potter e a Pedra Filosofal");
+
+        ebook1.setDuracaoEmMinutos(360);
+        ebook2.setDuracaoEmMinutos(750);
+        ebook3.setDuracaoEmMinutos(450);
 
         List<Audio> listaEbooks = new ArrayList<>();
         listaEbooks.add(ebook1);
