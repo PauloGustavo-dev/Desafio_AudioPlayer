@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import br.com.alura.desafio_audioplayer.lista_audios.Listas;
-import br.com.alura.desafio_audioplayer.produtos.Ebook;
-import br.com.alura.desafio_audioplayer.produtos.Musica;
-import br.com.alura.desafio_audioplayer.produtos.Podcast;
+import br.com.alura.desafio_audioplayer.produtos.Audio;
 
 public class AppMenus {
 
     static boolean menuPrincipal() {
-
         Scanner leitor = new Scanner(System.in);
         String escolhaMenuApresentacao = "0";
 
@@ -61,103 +58,91 @@ public class AppMenus {
 
     static void menuEscolhaTipoAudio(String escolhaTipoAudio) {
 
-        List<Musica> listaMusicas = Listas.listaMusicas();
+        List<Audio> listaMusicas = Listas.listaMusicas();
 
-        List<Podcast> listaPodcasts = Listas.listaPodcasts();
+        List<Audio> listaPodcasts = Listas.listaPodcasts();
 
-        List<Ebook> listaEbooks = Listas.listaEbooks();
+        List<Audio> listaEbooks = Listas.listaEbooks();
+
+        List<Audio> listaGeneralizada = new ArrayList<>();
 
         System.out.println(escolhaTipoAudio + "s disponiveis : ");
         int i = 1;
         switch (escolhaTipoAudio) {
             case "musica":
-                for (Musica musica : listaMusicas) {
-                    System.out.println(i + " - " + musica.getNome());
-                    i += 1;
-                }
-                int musicaEscolhida = menuOpcoesAudio();
-                int escolhaComando = 0 ;
-                while (escolhaComando != 5) {
-                    System.out.println("Opção escolhida: " + listaMusicas.get(musicaEscolhida).getNome());
-                    escolhaComando = menuOpcaoMetodoObjeto(escolhaTipoAudio);
-                    switch (escolhaComando) {
-                        case 1:
-                            listaMusicas.get(musicaEscolhida).play();
-                            break;
-                        case 2:
-                            double duracaoMusica = listaMusicas.get(musicaEscolhida).getDuracaoEmMinutos();
-                            System.out.println("Duração em minutos " + duracaoMusica + " Minutos");
-                            break;
-                        case 3:
-                            int totalReproducoes = listaMusicas.get(musicaEscolhida).getTotalDeReproducoes();
-                            System.out.println("Voce reproduziu " + totalReproducoes + " vezes");
-                            break;
-                        case 4:
-                            listaMusicas.get(musicaEscolhida).curtir();
-                            break;
-                        case 5:
-                            menuEscolhaTipoAudio("musica");
-                            break;
-                        default:
-                            System.out.println("opcao invalida");
-                            break;
-                    }
-                }
+                listaGeneralizada = listaMusicas;
                 break;
             case "podcast":
-                for (Podcast m : listaPodcasts) {
-                    System.out.println(i + " - " + m.getNome());
-                    i += 1;
-                }
+                listaGeneralizada = listaPodcasts;
                 break;
             case "ebook":
-                for (Ebook m : listaEbooks) {
-                    System.out.println(i + " - " + m.getNome());
-                    i += 1;
-                }
-                break;
+                listaGeneralizada = listaEbooks;
         }
+
+        for (Audio audio : listaGeneralizada) {
+            System.out.println(i + " - " + audio.getNome());
+            i += 1;
+        }
+        System.out.println(i + " - Sair para o menu principal");
+        int audioEscolhida = menuOpcoesAudio(i);
+        int escolhaComando = 0;
+        while (escolhaComando != 5) {
+            System.out.println("Opção escolhida: " + listaGeneralizada.get(audioEscolhida).getNome());
+            escolhaComando = menuOpcaoMetodoObjeto();
+            switch (escolhaComando) {
+                case 1:
+                    listaGeneralizada.get(audioEscolhida).play();
+                    break;
+                case 2:
+                    double duracaoMusica = listaGeneralizada.get(audioEscolhida).getDuracaoEmMinutos();
+                    System.out.println("Duração em minutos " + duracaoMusica + " Minutos");
+                    break;
+                case 3:
+                    int totalReproducoes = listaGeneralizada.get(audioEscolhida).getTotalDeReproducoes();
+                    System.out.println("Voce reproduziu " + totalReproducoes + " vezes");
+                    break;
+                case 4:
+                    listaGeneralizada.get(audioEscolhida).curtir();
+                    System.out.println("Voce curtiu " + listaGeneralizada.get(audioEscolhida).getCurtidas() + " vezes");
+                    break;
+                case 5:
+                    menuEscolhaTipoAudio(escolhaTipoAudio);
+                    break;
+                default:
+                    System.out.println("opcao invalida");
+                    menuEscolhaTipoAudio(escolhaTipoAudio);
+                    break;
+            }
+        }
+
     }
 
-    public static int menuOpcoesAudio() {
-        System.out.println("digite o numero da opção escolhida:");
+    public static int menuOpcoesAudio(int i) {
+        System.out.println("Digite o numero da opção escolhida:");
         int escolhaAudio = 0;
         Scanner leitor = new Scanner(System.in);
         escolhaAudio = leitor.nextInt();
+        if (escolhaAudio == i) {
+            menuPrincipal();
+        }
         escolhaAudio -= 1;
         return escolhaAudio;
 
     }
 
-    public static int menuOpcaoMetodoObjeto(String tipoAudio) {
+    public static int menuOpcaoMetodoObjeto() {
         Scanner leitor = new Scanner(System.in);
-        String menu_musica = """
-
-                1 - Play
-                2 - Duracao
-                3 - Numero de reproduções em sequencia 
-                4 - Curtir
-                5 - Voltar para lista de musicas
-                digite o numero da opção escolhida:""";
         String menu_audio = """
 
                 1 - Play
-                2 - Numero de reproduções em sequencia
+                2 - Duracao
+                3 - Numero de reproduções em sequencia
                 4 - Curtir
-                5 - Voltar para o menu principal
+                5 - Voltar para lista de musicas
                 digite o numero da opção escolhida:""";
-        if (tipoAudio.equals("musica")) {
-            System.out.println(menu_musica);
-        } else {
-            System.out.println(menu_audio);
-        }
+        
+        System.out.println(menu_audio);
         int escolhaMenu = leitor.nextInt();
         return escolhaMenu;
-    }
-
-    public static void clearBuffer(Scanner scanner) {
-        if (scanner.hasNextLine()) {
-            scanner.nextLine();
-        }
     }
 }
