@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 import br.com.alura.desafio_audioplayer.lista_audios.Listas;
 import br.com.alura.desafio_audioplayer.produtos.Audio;
+import br.com.alura.desafio_audioplayer.produtos.Ebook;
 import br.com.alura.desafio_audioplayer.produtos.Musica;
+import br.com.alura.desafio_audioplayer.produtos.Podcast;
 
 public class AppMenus {
 
@@ -112,7 +114,7 @@ public class AppMenus {
         System.out.println(i + " - Sair para o menu principal");
         int audioEscolhida = menuOpcoesAudio(i);
         int escolhaComando = 0;
-        while (escolhaComando != 5) {
+        while (escolhaComando != 6) {
             System.out.println("Opção escolhida: " + listaGeneralizada.get(audioEscolhida).getNome());
             escolhaComando = menuOpcaoMetodoObjeto();
             switch (escolhaComando) {
@@ -131,7 +133,41 @@ public class AppMenus {
                     listaGeneralizada.get(audioEscolhida).curtir();
                     System.out.println("Voce curtiu " + listaGeneralizada.get(audioEscolhida).getCurtidas() + " vezes");
                     break;
+                
                 case 5:
+                    Audio playback = listaGeneralizada.get(audioEscolhida);
+                    if (playback instanceof Ebook ){
+                        System.out.println("""
+                        1 - Aumentar Velocidade
+                        2 - Abaixar Velocidade
+                        Selecione a opcao desejada: """);
+                        int velocidade = leitor.nextInt();
+                        if (velocidade == 1){
+                            ((Ebook) playback).aumentarVelocidadeDeReproducao();
+                        } else if (velocidade == 2){
+                            ((Ebook) playback).abaixarVelocidadeDeReproducao();
+                        } else {
+                            System.out.println("opcao invalida");
+                        }
+                    } else if (playback instanceof Podcast){
+                        System.out.println("""
+                        1 - Aumentar Velocidade
+                        2 - Abaixar Velocidade
+                        Selecione a opcao desejada: """);
+                        int velocidade = leitor.nextInt();
+                        if (velocidade == 1){
+                            ((Podcast) playback).aumentarVelocidadeDeReproducao();
+                        } else if (velocidade == 2){
+                            ((Podcast) playback).abaixarVelocidadeDeReproducao();
+                        } else {
+                            System.out.println("opcao invalida");
+                        }
+                    } else{
+                        System.out.println("Não é possivel acelerar uma musica");
+                        menuEscolhaTipoAudio(escolhaTipoAudio);
+                    }
+                    break;
+                case 6:
                     menuEscolhaTipoAudio(escolhaTipoAudio);
                     break;
                 default:
@@ -164,7 +200,8 @@ public class AppMenus {
                 2 - Duracao
                 3 - Numero de reproduções em sequencia
                 4 - Curtir
-                5 - Voltar para lista de musicas
+                5 - Velocidade de reprodução
+                6 - Voltar para lista de musicas
                 digite o numero da opção escolhida:""";
         
         System.out.println(menu_audio);

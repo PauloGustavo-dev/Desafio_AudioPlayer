@@ -20,6 +20,7 @@ public class Ebook extends Audio implements playback{
             System.out.println("Reproduzindo na velocidade maxima");
         } else {
             velocidadeDeReproducao += 1;
+            System.out.println("Reproduzindo na velcidade: X" + this.getVelocidadeDeReproducao());
         }
     }
     public void abaixarVelocidadeDeReproducao(){
@@ -29,6 +30,7 @@ public class Ebook extends Audio implements playback{
             System.out.println("Reproduzindo na velocidade mínima");
         } else {
             velocidadeDeReproducao -= 1;
+            System.out.println("Reproduzindo na velcidade: X" + this.getVelocidadeDeReproducao());
         }
     }
 
