@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import br.com.alura.desafio_audioplayer.lista_audios.Listas;
 import br.com.alura.desafio_audioplayer.produtos.Audio;
+import br.com.alura.desafio_audioplayer.produtos.Musica;
 
 public class AppMenus {
 
@@ -41,7 +42,7 @@ public class AppMenus {
                     menuEscolhaTipoAudio("ebook");
                     break;
                 case "4":
-                    System.out.println("Playlist");
+                    menuEscolhaTipoAudio("playlist");
                     break;
                 case "5":
                     leitor.close();
@@ -66,8 +67,11 @@ public class AppMenus {
 
         List<Audio> listaGeneralizada = new ArrayList<>();
 
+        List<Audio> minhaPlaylist = new ArrayList<>();
+
         System.out.println(escolhaTipoAudio + "s disponiveis : ");
         int i = 1;
+        Scanner leitor = new Scanner(System.in);
         switch (escolhaTipoAudio) {
             case "musica":
                 listaGeneralizada = listaMusicas;
@@ -77,6 +81,28 @@ public class AppMenus {
                 break;
             case "ebook":
                 listaGeneralizada = listaEbooks;
+                break;
+            case "playlist":
+                boolean sairPlaylist = false;
+                while (sairPlaylist == false){
+                    System.out.println("Lista de musicas: ");
+                    i=1;
+                    for (Audio musica : listaMusicas) {
+                        System.out.println(i + " - " + musica.getNome());
+                        i += 1;
+                    }
+                    System.out.println(i + " - Sair para o menu principal");
+                    System.out.println("Escolha qual opcao vc deseja adicionar a playlist");
+                    int musicaPlaylist = leitor.nextInt();
+                    if (musicaPlaylist == i){
+                        menuPrincipal();
+                    }
+                    musicaPlaylist -= 1;
+
+                    minhaPlaylist.add(listaMusicas.get(musicaPlaylist));
+                    System.out.println(minhaPlaylist);
+                }
+                break;
         }
 
         for (Audio audio : listaGeneralizada) {
